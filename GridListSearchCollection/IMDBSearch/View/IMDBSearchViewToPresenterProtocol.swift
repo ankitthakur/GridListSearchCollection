@@ -18,4 +18,5 @@ protocol IMDBSearchViewToPresenterProtocol {
     func numberOfSections() -> Int
     func numberOfItemsInSection(_ section: Int) -> Int
     func movie(at indexPath: IndexPath) -> Movie?
+    func canLoadMore(at indexPath: IndexPath) -> Bool
 }

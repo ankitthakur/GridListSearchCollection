@@ -15,6 +15,7 @@ class IMDBSearchPresenter {
     var router: IMDBSearchPresenterToRouterProtocol
     var movies:[Movie] = []
     var pageIndex:Int = 0
+    var lastRequestedTime: TimeInterval = 0
     init(view: IMDBSearchPresenterToViewProtocol, interactor: IMDBSearchPresenterToInteractorProtocol,
          router: IMDBSearchPresenterToRouterProtocol) {
         self.view = view
@@ -51,7 +52,11 @@ extension IMDBSearchPresenter: IMDBSearchViewToPresenterProtocol {
         } else {
             pageIndex = 0
         }
+        let difference = Date().timeIntervalSince1970 - lastRequestedTime
+        print("difference - \(difference)")
+        guard difference > 0.2 else {return}
         interactor.fetchMovies(for:searchMovieName, pageIndex: pageIndex)
+        
     }
     
     func numberOfSections() -> Int {
@@ -60,6 +65,11 @@ extension IMDBSearchPresenter: IMDBSearchViewToPresenterProtocol {
     
     func numberOfItemsInSection(_ section: Int) -> Int {
         return movies.count
+    }
+    
+    func canLoadMore(at indexPath: IndexPath) -> Bool {
+        guard indexPath.row == movies.count-1 else {return false}
+        return true
     }
     
     func movie(at indexPath: IndexPath) -> Movie? {
@@ -72,6 +82,7 @@ extension IMDBSearchPresenter: IMDBSearchViewToPresenterProtocol {
 extension IMDBSearchPresenter: IMDBSearchInteractorToPresenterProtocol {
     
     func appendMovies(_ movies: [Movie]) {
+        lastRequestedTime = Date().timeIntervalSince1970
         guard view != nil else {return}
         if self.pageIndex == 0 {
             self.movies = movies
@@ -87,7 +98,8 @@ extension IMDBSearchPresenter: IMDBSearchInteractorToPresenterProtocol {
     }
     
     func didReceiveError() {
-        
+        guard pageIndex > 0 else {return}
+        pageIndex = pageIndex - 1
     }
     
 }

@@ -119,7 +119,7 @@ extension IMDBSearchViewController: IMDBSearchPresenterToViewProtocol {
 extension IMDBSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard presenter.movie(at: indexPath) == nil else {return}
+        guard presenter.canLoadMore(at: indexPath) else {return}
         self.search(withIncrementalPage: true)
     }
     
