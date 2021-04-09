@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-GridListSearchCollection/Pods-GridListSearchCollection-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Connectivity/Connectivity.framework
+${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework

@@ -1,0 +1,6 @@
+framework module Pods_GridListSearchCollection_GridListSearchCollectionUITests {
+  umbrella header "Pods-GridListSearchCollection-GridListSearchCollectionUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
