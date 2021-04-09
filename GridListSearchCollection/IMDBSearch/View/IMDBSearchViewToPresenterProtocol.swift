@@ -12,7 +12,7 @@ protocol IMDBSearchViewToPresenterProtocol {
     func viewWillAppear()
     func viewWillDisappear()
     
-    func fetchMovies(for searchMovieName: String?)
+    func fetchMovies(for searchMovieName: String?, withIncrementalPage: Bool)
     
     // DataProvider apis right now in presenter
     func numberOfSections() -> Int

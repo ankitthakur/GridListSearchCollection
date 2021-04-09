@@ -38,7 +38,7 @@ extension IMDBSearchPresenter: IMDBSearchViewToPresenterProtocol {
         interactor.unregisterObservers()
     }
     
-    func fetchMovies(for searchMovieName: String?) {
+    func fetchMovies(for searchMovieName: String?, withIncrementalPage: Bool) {
         guard NetworkManager.shared.isNetworkReachable() else {
             if let viewController = view as? UIViewController,
                let navigationController = viewController.navigationController {
@@ -46,8 +46,12 @@ extension IMDBSearchPresenter: IMDBSearchViewToPresenterProtocol {
             }
             return
         }
-        
-        interactor.fetchMovies(for:searchMovieName)
+        if withIncrementalPage {
+            pageIndex = pageIndex + 1
+        } else {
+            pageIndex = 0
+        }
+        interactor.fetchMovies(for:searchMovieName, pageIndex: pageIndex)
     }
     
     func numberOfSections() -> Int {

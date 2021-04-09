@@ -22,13 +22,13 @@ extension IMDBSearchInteractor: IMDBSearchPresenterToInteractorProtocol {
         ServiceEventManager.shared.removeObserver(self)
     }
     
-    func fetchMovies(for searchMovieName: String?) {
+    func fetchMovies(for searchMovieName: String?, pageIndex: Int) {
         guard let searchName = searchMovieName, !searchName.isEmpty else {
             presenter?.didReceiveNoMovies()
             return
         }
         
-        Service.searchResults(for: searchName)
+        Service.searchResults(for: searchName, atIndex: pageIndex+1)
     }
 }
 

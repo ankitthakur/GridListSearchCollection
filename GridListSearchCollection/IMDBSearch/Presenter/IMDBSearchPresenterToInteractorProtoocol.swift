@@ -10,5 +10,5 @@ import Foundation
 protocol IMDBSearchPresenterToInteractorProtocol {
     func registerObservers()
     func unregisterObservers()
-    func fetchMovies(for searchMovieName: String?) 
+    func fetchMovies(for searchMovieName: String?, pageIndex: Int) 
 }

@@ -65,8 +65,8 @@ class IMDBSearchViewController: UIViewController {
         presenter.viewWillDisappear()
     }
     
-    func search() {
-        presenter.fetchMovies(for: self.searchString)
+    func search(withIncrementalPage: Bool = false) {
+        presenter.fetchMovies(for: self.searchString, withIncrementalPage: withIncrementalPage)
     }
     
     @objc func changeViewLayoutAction() {
@@ -117,6 +117,11 @@ extension IMDBSearchViewController: IMDBSearchPresenterToViewProtocol {
 }
 
 extension IMDBSearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard presenter.movie(at: indexPath) == nil else {return}
+        self.search(withIncrementalPage: true)
+    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var movieCell: GridMovieCollectionViewCell?
